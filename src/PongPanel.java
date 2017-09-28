@@ -6,13 +6,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-
 class PongPanel extends JPanel implements ActionListener,KeyListener{
     private Ball b;
     private Paddle left_pad;
     private Paddle right_pad;
     private Timer timer;
     private int DELAY = 10;
+    private boolean keys[]; //Array the holds the activated keys.
+    private int LEFT_UP = 0;
+    private int LEFT_DOWN = 1;
+    private int RIGHT_UP = 2;
+    private int RIGHT_DOWN = 3;
 
 
     PongPanel(){
@@ -25,12 +29,20 @@ class PongPanel extends JPanel implements ActionListener,KeyListener{
         Timer timer = new Timer(DELAY,this);
         timer.start();
         setDoubleBuffered(true);
+        keys = new boolean[]{false,false,false,false};
     }
-
+/*
+Moving the code for moving paddles into actionPerformed make
+the paddle movement super smooth.
+ */
     @Override
     public void actionPerformed(ActionEvent e) {
         b.move();
         checkCollision();
+        if(keys[LEFT_UP]) left_pad.moveUp();
+        if(keys[LEFT_DOWN]) left_pad.moveDown();
+        if(keys[RIGHT_UP]) right_pad.moveUp();
+        if(keys[RIGHT_DOWN]) right_pad.moveDown();
         repaint();
     }
 
@@ -94,29 +106,43 @@ class PongPanel extends JPanel implements ActionListener,KeyListener{
         /*
         Controls for right paddle are the up and down arrow keys.
         Controls for left paddle are the w and s keys.
+
+        Used the keys array to implement simultaneous movement of paddles.
+        Movement code is shifted to the actionPerformed method.
+        For eg. if keys[RIGHT_UP] = true,the action performed method will move
+        the right paddle up.
          */
         //TODO : Simultaneous movement of paddles.
         if(e.getKeyCode() == KeyEvent.VK_UP) {
-            right_pad.moveUp();
-            repaint();
+            keys[RIGHT_UP] = true;
+
         }
         if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-            right_pad.moveDown();
-            repaint();
+            keys[RIGHT_DOWN] = true;
         }
         if(e.getKeyCode() == KeyEvent.VK_W){
-            left_pad.moveUp();
-            repaint();
+            keys[LEFT_UP] = true;
         }
         if(e.getKeyCode() == KeyEvent.VK_S){
-            left_pad.moveDown();
-            repaint();
+            keys[LEFT_DOWN] = true;
         }
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_UP) {
+            keys[RIGHT_UP] = false;
 
+        }
+        if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+            keys[RIGHT_DOWN] = false;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_W){
+            keys[LEFT_UP] = false;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_S){
+            keys[LEFT_DOWN] = false;
+        }
     }
 }

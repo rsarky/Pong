@@ -27,7 +27,7 @@ The string parameter will tell if it is the left paddle
  or the right one.
  */
 Paddle(String s) {
-        vel = 15;
+        vel = 10;
 //        accel = 2;
         height = 150;
         width = 10;

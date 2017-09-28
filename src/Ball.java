@@ -10,8 +10,8 @@ class Ball {
 
     private int y_vel;
     Ball() {
-        x_vel = 2;
-        y_vel = 2;
+        x_vel = 4;
+        y_vel = 4;
         diameter = 15;
         x_pos = PongFrame.WIDTH/2;
         y_pos = PongFrame.HEIGHT/2;
