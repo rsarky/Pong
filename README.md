@@ -13,5 +13,7 @@ Currently it is 2 player.
 - [ ] Add Score.
 - [ ] Add Sound.
 - [ ] Revise *checkCollision()* method.
+- [ ] Add menu screen.
+    
 
 Project was made using IntelliJ IDE.
