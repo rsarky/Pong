@@ -7,9 +7,9 @@ Currently it is 2 player.
 
 **TODO**:
 - [ ] Implement Acceleration.
-- [ ] Simultaneous movement of paddles.
+- [x] Simultaneous movement of paddles.
 - [ ] AI Paddle.
-- [ ] Smoother movement of Paddle.
+- [x] Smoother movement of Paddle.
 - [ ] Add Score.
 - [ ] Add Sound.
 - [ ] Revise *checkCollision()* method.
