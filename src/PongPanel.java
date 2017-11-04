@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-
+/**
+ * This is the content pane of my JFrame.
+ */
 class PongPanel extends JPanel implements ActionListener,KeyListener{
     private Ball b;
     private Paddle left_pad;
@@ -17,19 +19,39 @@ class PongPanel extends JPanel implements ActionListener,KeyListener{
     private int LEFT_DOWN = 1;
     private int RIGHT_UP = 2;
     private int RIGHT_DOWN = 3;
+    private int left_score;
+    private int right_score;
+    JLabel l_score;
+    JLabel r_score;
+
 
 
     PongPanel(){
         setBackground(Color.BLACK);
+        setLayout(null);
         b = new Ball();
         left_pad = new Paddle("left");
         right_pad = new Paddle("right");
         addKeyListener(this);
         setFocusable(true);
-        Timer timer = new Timer(DELAY,this);
+        timer = new Timer(DELAY,this);
         timer.start();
         setDoubleBuffered(true);
         keys = new boolean[]{false,false,false,false};
+        left_score=0;
+        right_score=0;
+
+        // Code for the displaying the scores in JLabels.
+        l_score = new JLabel("0",JLabel.CENTER);
+        r_score = new JLabel("0",JLabel.CENTER);
+        l_score.setBounds(150,30,100,100);
+        r_score.setBounds(PongFrame.WIDTH-250,30,100,100);
+        l_score.setForeground(Color.WHITE);
+        r_score.setForeground(Color.WHITE);
+        l_score.setFont(new Font("Serif",Font.BOLD,50));
+        r_score.setFont(new Font("Serif",Font.BOLD,50));
+        add(l_score);
+        add(r_score);
     }
 /*
 Moving the code for moving paddles into actionPerformed make
@@ -43,7 +65,13 @@ the paddle movement super smooth.
         if(keys[LEFT_DOWN]) left_pad.moveDown();
         if(keys[RIGHT_UP]) right_pad.moveUp();
         if(keys[RIGHT_DOWN]) right_pad.moveDown();
+        updateScore();
         repaint();
+    }
+
+    private void updateScore() {
+        l_score.setText(""+left_score);
+        r_score.setText(""+right_score);
     }
 
     private void checkCollision() {
@@ -53,6 +81,7 @@ the paddle movement super smooth.
             else {
                 b.setX_pos(PongFrame.WIDTH / 2);
                 b.setY_pos(PongFrame.HEIGHT / 2);
+                right_score++;
             }
         }
         if(b.getX_pos() > (right_pad.getX_pos() - right_pad.getWidth())){
@@ -61,6 +90,7 @@ the paddle movement super smooth.
             else {
                 b.setX_pos(PongFrame.WIDTH / 2);
                 b.setY_pos(PongFrame.HEIGHT / 2);
+                left_score++;
             }
 
         }
@@ -112,7 +142,6 @@ the paddle movement super smooth.
         For eg. if keys[RIGHT_UP] = true,the action performed method will move
         the right paddle up.
          */
-        //TODO : Simultaneous movement of paddles.
         if(e.getKeyCode() == KeyEvent.VK_UP) {
             keys[RIGHT_UP] = true;
 
