@@ -7,9 +7,9 @@ Currently it is 2 player.
 
 # Screenshots
 
-![screenshot-1](../screenshots/img1.png)
+![screenshot-1](./screenshots/img1.png)
 
-![screnshot-2](../screenshots/img2.png)
+![screnshot-2](./screenshots/img2.png)
 
 **TODO**:
 - [ ] Implement Acceleration.
