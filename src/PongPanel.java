@@ -38,10 +38,11 @@ class PongPanel extends JPanel implements ActionListener,KeyListener{
         timer.start();
         setDoubleBuffered(true);
         keys = new boolean[]{false,false,false,false};
-        left_score=0;
-        right_score=0;
+
 
         // Code for the displaying the scores in JLabels.
+        left_score=0;
+        right_score=0;
         l_score = new JLabel("0",JLabel.CENTER);
         r_score = new JLabel("0",JLabel.CENTER);
         l_score.setBounds(150,30,100,100);
@@ -94,7 +95,8 @@ the paddle movement super smooth.
             }
 
         }
-        else if(b.getY_pos()<0 || b.getY_pos()>PongFrame.HEIGHT){
+        // Used 3*b.getDiameter() instead of simple b.getDiameter() because ball was going below screen.
+        else if(b.getY_pos()<0 || b.getY_pos() > PongFrame.HEIGHT - 3*b.getDiameter()){
             b.revVelocityY();
         }
 

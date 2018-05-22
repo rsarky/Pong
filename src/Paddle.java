@@ -45,8 +45,9 @@ The string parameter will tell if it is the left paddle
             y_pos-=vel;
     }
 
+    //Factor of 35 is introduced because panel was going below the screen.
     void moveDown(){
-        if(y_pos < (PongFrame.HEIGHT - height))
+        if(y_pos < (PongFrame.HEIGHT - height-35))
             y_pos +=vel;
     }
 }
